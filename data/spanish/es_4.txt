@@ -1,0 +1,13 @@
+La metaestabilidad es la propiedad que exhibe un sistema con varios estados de equilibrio, cuando permanece en un estado de equilibrio débilmente estable durante un considerable período de tiempo. Sin embargo, bajo la acción de perturbaciones externas (a veces no fácilmente detectables) dichos sistemas exhiben una evolución temporal hacia un estado de equilibrio fuertemente estable. Normalmente la metaestabilidad es debida a transformaciones de estado lentas.
+
+Si representamos un sistema físico-químico por su energía potencial, un estado metaestable estará caracterizado por un estado que corresponde a un mínimo local de energía. Para que el sistema pueda alcanzar el estado de energía mínima que corresponde al estado de equilibrio termodinámico, es necesario suministrarle una cantidad de energía llamada energía de activación.
+Metaestabilidad química
+
+Por ejemplo, a temperatura ambiente los diamantes son metaestables porque la transformación a su forma estable, el grafito, es extremadamente lenta. A mayores temperaturas, la tasa de transformación se incrementa y el diamante se convierte en grafito.
+
+La martensita es una fase metaestable que se utiliza en el control de la dureza de la mayoría de los aceros mediante las transformaciones martensíticas.
+Metaestabilidad biológica
+
+Los enlaces entre los elementos constructivos de los polímeros como el ADN, ARN y las proteínas son también metaestables.
+
+Los componentes carbonados que constituyen los seres vivos son metaestables. Una enzima es un biocatalizador capaz de establecer enlaces débiles con su sustrato a nivel de su lugar activo. La energía de enlace liberada está en el origen de la disminución de la energía de activación de la reacción. De este modo, la reacción se activa cinéticamente (ley de Arrhenius). Una enzima puede acelerar la constante de velocidad de la reacción que cataliza: así, reacciones químicas muy lentas sin catalizador son aceleradas hasta hacerse utilizables por el metabolismo. 

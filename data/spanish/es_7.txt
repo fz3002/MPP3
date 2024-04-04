@@ -1,0 +1,9 @@
+Una casa energía plus es una casa que produce más energía generada por fuentes renovables, en el curso de un año promedio, respecto de la energía importada de la red. Para esto se requiere una combinación de tecnología de microgeneración y un edificio de baja energía mediante la implementación de técnicas de diseño edilicio solar pasivo, aislamiento térmico junto a una cuidadosa elección del sitio y el emplazamiento.
+
+Puede implicar un cierto minimalismo post-moderno que utilice un mínimo de equipamientos modernos, que requieren poca energía para funcionar. No obstante muchas casas energía plus son indistinguibles de un hogar tradicional, en cuanto a imagen formal, puesto que utilizan simplemente las soluciones de mayor eficiencia energética (por ejemplo: electrodomésticos; iluminación bajo consumo; puertas y ventanas; intercambiadores de calor en el sistema de calefacción y ventilación; aislamiento en paredes, techos e instalaciones, etc); a través de toda la casa o edificio.
+
+Un edificio de estas características se caracteriza entonces por gastar muy poca energía y que la energía generada sea en un año mayor que la consumida.
+
+Esto no asegura que la vivienda sea confortable desde un punto de vista higrotérmico, ya que podrá ser calurosa en verano o enfriarse muy rápidamente en invierno o hasta sobrecalentarse si no existe un balance térmico optimizado. Y es mucho más recomendable ajustar el diseño mediante simulaciones numéricas con programas específicos tales como Energy Plus, Simedif y Codyba, entre otros. Los dos primeros son gratuitos y el último pago y ninguno es GNU.
+Integración de energías renovables
+La fuente de energía renovable más empleada en este tipo de edificios es la solar, tanto fotovoltaica (para suministro eléctrico) como térmica (para agua caliente sanitaria, calefacción e incluso aire acondicionado o climatización de piscinas). Otras posibilidades son la geotérmica o incluso la eólica a través de microgeneradores. 
