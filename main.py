@@ -1,4 +1,5 @@
 from collections import Counter
+import math
 import random
 import re
 import os
@@ -86,16 +87,17 @@ class Perceptron:
         """        
         prev_result = self.compute(vector)
         
-        vector.append(-1)
+        _vector = vector + [-1]
         
-        passed_result = 0
-        if good_result == self.activating_result: passed_result = 1
+        should_activate = 0
+        if good_result == self.activating_result: should_activate = 1
 
+        #print(good_result, " ", self.activating_result, should_activate, prev_result, vector)
         for i in range(len(self.weights)):
             
-            self.weights[i] += ((passed_result - prev_result)
+            self.weights[i] += ((should_activate - prev_result)
                                 * self.alpha 
-                                * float(vector[i]))
+                                * float(_vector[i]))
             
 
 class NeuralNetwork:
@@ -115,30 +117,34 @@ class NeuralNetwork:
     
     def compute_network_result(self, vector):
         
-        weights_and_input = []
         results = []
-        
-        for percpetron in self.perceptrons:
-            weights_and_input.append(percpetron.weights)
-        weights_and_input.append(vector)
-        
-        weights_and_input = _DataSetCreator.normalize(weights_and_input)
-        
-        for i in range(len(self.perceptrons)):
-            self.perceptrons[i].weights = weights_and_input[i]
-        
-        vector = weights_and_input[-1]
-        
+                
+        for i in range(len(vector)):
+            vector[i] /= self._vector_length(vector)
+            
         for perceptron in self.perceptrons:
-            results.append(perceptron.get_net(vector))
-        
+            results.append(perceptron.get_net(vector))     
+            
         print(self.classes)
         print(results)
             
         index_of_activated_perceptron = results.index(max(results))
         
         return self.perceptrons[index_of_activated_perceptron].activating_result
-                    
+
+    def normalize_weights(self):
+        for i in range(len(self.perceptrons)):
+            v_len = self._vector_length(self.perceptrons[i].weights[:-1])
+            for j in range(len(self.perceptrons[i].weights)-1):
+                self.perceptrons[i].weights[j] /= v_len
+    
+    def _vector_length(self, vector):
+        result = 0
+        for e in vector:
+            result += (e**2)
+        result = math.sqrt(result)
+        
+        return result     
             
 
 class Trainer:
@@ -282,10 +288,15 @@ class Controller:
     def start():
         data_set = _DataSetCreator.create_vector_list("data")
         classes = _DataSetCreator.get_names_of_classes(data_set)
-        neural_network = NeuralNetwork(0.5, classes, len(data_set[0])-1)
+        neural_network = NeuralNetwork(1, classes, len(data_set[0])-1)
         trainer = Trainer(neural_network, data_set)
-        trainer.train()
-        trainer.train()
+        print(neural_network.perceptrons[0].weights)
+        for i in range(3):
+            print("training number: ", i)
+            trainer.train()
+        print(neural_network.perceptrons[0].weights)
+        neural_network.normalize_weights()
+        print(neural_network.perceptrons[0].weights)
         while(True):
             text_to_test = UI.input_text_to_test()
             vector_to_test = _DataSetCreator.get_letters_count_vector(text_to_test)
