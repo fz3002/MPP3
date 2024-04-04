@@ -1,4 +1,7 @@
+from collections import Counter
 import random
+import re
+import os
 
 
 class Perceptron:
@@ -123,7 +126,7 @@ class Trainer:
         
         self.perceptron = perceptron
         self.train_set_fname = train_set_fname
-        self.train_set = read_file(self.train_set_fname)
+        self.train_set = _DataSetCreator().create_vector_list("data")
         self.names_of_classes = self.__set_names_of_classes()
         
         random.shuffle(self.train_set)
@@ -156,3 +159,26 @@ class Trainer:
             for line in self.train_set:
                 class_index = self.names_of_classes.index(line[-1])
                 self.perceptron.learn(class_index, line[:-1])
+
+class _DataSetCreator:
+        
+    def create_vector_list(self, dir_name):
+        vector_list = []
+        rootdir = os.getcwd() + "/" + dir_name
+        for subdir, dirs, files in os.walk(rootdir):
+            for file in files:
+                vector = [0]*26
+                language = os.path.basename(subdir)
+                file = open(os.path.join(subdir,file),"r")
+                text = file.read()
+                text.strip()
+                regex = re.compile('[^a-zA-Z]+')
+                text = regex.sub('',text).lower()
+                letter_counter = Counter(text)
+                number_of_letters = letter_counter.total()
+                for i in range(26):
+                    vector[i] = letter_counter[chr(i+ord('a'))]/number_of_letters
+                vector.append(language)
+                vector_list.append(vector)
+        return vector_list
+    
