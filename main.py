@@ -198,7 +198,7 @@ class Trainer:
                 percpetron.learn(line[-1], line[:-1])
             
 
-class _DataSetCreator:
+class DataSetCreator:
     
     @staticmethod
     def normalize(dataset):
@@ -235,11 +235,11 @@ class _DataSetCreator:
                 language = os.path.basename(subdir)
                 file = open(os.path.join(subdir,file),"r")
                 text = file.read().strip()
-                vector = _DataSetCreator.get_letters_count_vector(text)
+                vector = DataSetCreator.get_letters_count_vector(text)
                 vector.append(language)
                 vector_list.append(vector)
                 
-        vector_list = _DataSetCreator.normalize(vector_list)
+        vector_list = DataSetCreator.normalize(vector_list)
         
         return vector_list
 
@@ -286,9 +286,9 @@ class Controller:
     
     @staticmethod    
     def start():
-        data_set = _DataSetCreator.create_vector_list("data")
-        classes = _DataSetCreator.get_names_of_classes(data_set)
-        neural_network = NeuralNetwork(1, classes, len(data_set[0])-1)
+        data_set = DataSetCreator.create_vector_list("data")
+        classes = DataSetCreator.get_names_of_classes(data_set)
+        neural_network = NeuralNetwork(0.5, classes, len(data_set[0])-1)
         trainer = Trainer(neural_network, data_set)
         print(neural_network.perceptrons[0].weights)
         for i in range(3):
@@ -299,11 +299,12 @@ class Controller:
         print(neural_network.perceptrons[0].weights)
         while(True):
             text_to_test = UI.input_text_to_test()
-            vector_to_test = _DataSetCreator.get_letters_count_vector(text_to_test)
+            vector_to_test = DataSetCreator.get_letters_count_vector(text_to_test)
+            print(vector_to_test)
             result = neural_network.compute_network_result(vector_to_test)
             UI.print_results(result)
         
            
-Controller.start()
+#Controller.start()
 
     
