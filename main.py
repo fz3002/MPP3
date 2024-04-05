@@ -72,6 +72,7 @@ class Perceptron:
 
     def get_net(self, vector):
         _vector = vector + [-1]
+        
         net = 0
         
         for i in range(len(_vector)):
@@ -89,15 +90,19 @@ class Perceptron:
         
         _vector = vector + [-1]
         
+        #print(_vector)
+        
         should_activate = 0
         if good_result == self.activating_result: should_activate = 1
-
-        #print(good_result, " ", self.activating_result, should_activate, prev_result, vector)
+        
+        #print(self, good_result, " ", self.activating_result, should_activate, prev_result)
         for i in range(len(self.weights)):
             
             self.weights[i] += ((should_activate - prev_result)
                                 * self.alpha 
                                 * float(_vector[i]))
+            
+        #print(self.weights)
             
 
 class NeuralNetwork:
@@ -117,13 +122,12 @@ class NeuralNetwork:
     
     def compute_network_result(self, vector):
         
+        _vector = vector
+        
         results = []
-                
-        for i in range(len(vector)):
-            vector[i] /= self._vector_length(vector)
             
         for perceptron in self.perceptrons:
-            results.append(perceptron.get_net(vector))     
+            results.append(perceptron.get_net(_vector))     
             
         print(self.classes)
         print(results)
@@ -134,11 +138,11 @@ class NeuralNetwork:
 
     def normalize_weights(self):
         for i in range(len(self.perceptrons)):
-            v_len = self._vector_length(self.perceptrons[i].weights[:-1])
+            v_len = self.vector_length(self.perceptrons[i].weights[:-1])
             for j in range(len(self.perceptrons[i].weights)-1):
                 self.perceptrons[i].weights[j] /= v_len
     
-    def _vector_length(self, vector):
+    def vector_length(self, vector):
         result = 0
         for e in vector:
             result += (e**2)
@@ -193,38 +197,12 @@ class Trainer:
         Args:
             number_of_trainings (int): number of passes perceptron has to do through train_set
         """        
-        for percpetron in self.neural_network.perceptrons:
-            for line in self.train_set:
+        for line in self.train_set:
+            for percpetron in self.neural_network.perceptrons:
                 percpetron.learn(line[-1], line[:-1])
             
 
 class DataSetCreator:
-    
-    @staticmethod
-    def normalize(dataset):
-        attributes_values = []
-
-        #get values for each attribute in dataset
-        for i in range(len(dataset[0])-1):
-            attributes_values.append([])
-        for row in dataset:
-            for i in range(len(row)-1):
-                attributes_values[i].append(float(row[i]))
-
-        max_attributes = []
-        min_attributes = []
-
-        #get max and min value for each attribute in dataset
-        for attribute in attributes_values:
-            max_attributes.append(max(attribute))
-            min_attributes.append(min(attribute))
-
-        #normalize every value
-        for row in dataset:
-            for i in range(len(row)-1):
-                row[i] = round((float(row[i]) - min_attributes[i])/(max_attributes[i] - min_attributes[i]),3)
-        
-        return dataset
     
     @staticmethod
     def create_vector_list(dir_name):
@@ -233,13 +211,11 @@ class DataSetCreator:
         for subdir, dirs, files in os.walk(rootdir):
             for file in files:
                 language = os.path.basename(subdir)
-                file = open(os.path.join(subdir,file),"r")
+                file = open(os.path.join(subdir,file),"r", encoding="utf8")
                 text = file.read().strip()
                 vector = DataSetCreator.get_letters_count_vector(text)
                 vector.append(language)
                 vector_list.append(vector)
-                
-        vector_list = DataSetCreator.normalize(vector_list)
         
         return vector_list
 
@@ -290,21 +266,20 @@ class Controller:
         classes = DataSetCreator.get_names_of_classes(data_set)
         neural_network = NeuralNetwork(0.5, classes, len(data_set[0])-1)
         trainer = Trainer(neural_network, data_set)
-        print(neural_network.perceptrons[0].weights)
-        for i in range(3):
+        for i in range(100):
             print("training number: ", i)
             trainer.train()
-        print(neural_network.perceptrons[0].weights)
         neural_network.normalize_weights()
-        print(neural_network.perceptrons[0].weights)
         while(True):
             text_to_test = UI.input_text_to_test()
             vector_to_test = DataSetCreator.get_letters_count_vector(text_to_test)
-            print(vector_to_test)
+            test_vector_len = neural_network.vector_length(vector_to_test)
+            for i in range(len(vector_to_test)) :
+                vector_to_test[i] /= test_vector_len
             result = neural_network.compute_network_result(vector_to_test)
             UI.print_results(result)
         
            
-#Controller.start()
+Controller.start()
 
     
