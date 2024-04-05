@@ -233,7 +233,7 @@ class DataSetCreator:
         for subdir, dirs, files in os.walk(rootdir):
             for file in files:
                 language = os.path.basename(subdir)
-                file = open(os.path.join(subdir,file),"r")
+                file = open(os.path.join(subdir,file),"r", encoding="utf-8")
                 text = file.read().strip()
                 vector = DataSetCreator.get_letters_count_vector(text)
                 vector.append(language)
