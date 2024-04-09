@@ -98,9 +98,7 @@ class Perceptron:
         #print(self, good_result, " ", self.activating_result, should_activate, prev_result)
         for i in range(len(self.weights)):
             
-            self.weights[i] += ((should_activate - prev_result)
-                                * self.alpha 
-                                * float(_vector[i]))
+            self.weights[i] += ((should_activate - prev_result) * self.alpha * float(_vector[i]))
             
         #print(self.weights)
             
@@ -125,9 +123,9 @@ class NeuralNetwork:
         _vector = vector
         
         results = []
-            
+        
         for perceptron in self.perceptrons:
-            results.append(perceptron.get_net(_vector))     
+            results.append(perceptron.get_net(_vector))  
             
         print(self.classes)
         print(results)
@@ -264,9 +262,9 @@ class Controller:
     def start():
         data_set = DataSetCreator.create_vector_list("data")
         classes = DataSetCreator.get_names_of_classes(data_set)
-        neural_network = NeuralNetwork(0.5, classes, len(data_set[0])-1)
+        neural_network = NeuralNetwork(0.05, classes, len(data_set[0])-1)
         trainer = Trainer(neural_network, data_set)
-        for i in range(100):
+        for i in range(5):
             print("training number: ", i)
             trainer.train()
         neural_network.normalize_weights()
