@@ -51,8 +51,9 @@ class Perceptron:
             number_of_attributes (int): number of weights to generate (without threshold)
         """        
         
-        for i in range(number_of_attributes + 1):
+        for i in range(number_of_attributes):
             self.weights.append(random.randint(-5, 5))
+        self.weights.append(0)
 
     def compute(self, vector):
         """Computes output of perceptron
@@ -264,7 +265,7 @@ class Controller:
         classes = DataSetCreator.get_names_of_classes(data_set)
         neural_network = NeuralNetwork(0.05, classes, len(data_set[0])-1)
         trainer = Trainer(neural_network, data_set)
-        for i in range(5):
+        for i in range(100):
             print("training number: ", i)
             trainer.train()
         neural_network.normalize_weights()
