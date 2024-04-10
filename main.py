@@ -52,7 +52,7 @@ class Perceptron:
         """        
         
         for i in range(number_of_attributes):
-            self.weights.append(random.randint(-5, 5))
+            self.weights.append(random.randint(0, 1))
         self.weights.append(0)
 
     def compute(self, vector):
