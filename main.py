@@ -9,7 +9,6 @@ class Perceptron:
 
     def __init__(self, alpha, activating_result, number_of_attributes) :
   
-        
         self.alpha = alpha
         self.weights = []
         self.activating_result = activating_result
@@ -30,6 +29,7 @@ class Perceptron:
         return 0
 
     def get_net(self, vector):
+
         _vector = vector + [-1]
         
         net = 0
@@ -54,12 +54,14 @@ class Perceptron:
 
 class NeuralNetwork:
     def __init__(self, alpha, classes, number_of_attributes):
+
         self.alpha = alpha
         self.classes = classes
         self.number_of_attributes = number_of_attributes
         self.perceptrons = self.__create_neural_network()
     
     def __create_neural_network(self):
+
         network = []
         
         for i in range(len(self.classes)):
@@ -84,12 +86,14 @@ class NeuralNetwork:
         return self.perceptrons[index_of_activated_perceptron].activating_result
 
     def normalize_weights(self):
+
         for i in range(len(self.perceptrons)):
             v_len = self.vector_length(self.perceptrons[i].weights[:-1])
             for j in range(len(self.perceptrons[i].weights)-1):
                 self.perceptrons[i].weights[j] /= v_len
     
     def vector_length(self, vector):
+        
         result = 0
         for e in vector:
             result += (e**2)
@@ -175,7 +179,7 @@ class Controller:
         classes = DataSetCreator.get_names_of_classes(data_set)
         neural_network = NeuralNetwork(0.05, classes, len(data_set[0])-1)
         trainer = Trainer(neural_network, data_set)
-        for i in range(100):
+        for i in range(300):
             trainer.train()
         neural_network.normalize_weights()
         while(True):
